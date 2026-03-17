@@ -1,11 +1,11 @@
-import { api } from "..";
+import { api } from "@/api";
 import type { LoginRequest, LoginResponse } from "./types";
 
-export const login = async (data: LoginRequest): Promise<LoginResponse> => {
-  const response = await api.post<LoginResponse>({
-    url: "/auth/login",
-    data,
-  });
-
-  return response.data;
+export const loginApi = (data: LoginRequest): Promise<LoginResponse> => {
+  return api
+    .post<LoginResponse>({
+      url: "/auth/login",
+      data,
+    })
+    .then((res) => res.data);
 };

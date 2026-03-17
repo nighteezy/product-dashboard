@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { authStorage } from "../lib/authStorage";
-import { AuthContext } from "./authContext";
+
+export interface AuthContextType {
+  isAuth: boolean;
+  login: (token: string, remember: boolean) => void;
+  logout: () => void;
+}
+
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAuth, setIsAuth] = useState(authStorage.isAuthenticated());
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsAuth(authStorage.isAuthenticated());
+  }, []);
 
   const login = (token: string, remember: boolean) => {
     authStorage.setToken(token, remember);
@@ -21,4 +32,3 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   );
 };
-export { AuthContext };

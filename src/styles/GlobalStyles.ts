@@ -1,14 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-  /* Сброс стилей по умолчанию */
   *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
 
-  /* Базовые стили */
   body {
     font-family: 'Inter', sans-serif;
     background-color: #f5f5f5;

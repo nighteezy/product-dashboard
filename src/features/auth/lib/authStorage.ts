@@ -3,7 +3,10 @@ const TOKEN_KEY = "token";
 export const authStorage = {
   setToken(token: string, remember: boolean) {
     const storage = remember ? localStorage : sessionStorage;
+    const otherStorage = remember ? sessionStorage : localStorage;
+
     storage.setItem(TOKEN_KEY, token);
+    otherStorage.removeItem(TOKEN_KEY);
   },
 
   getToken(): string | null {
@@ -15,7 +18,7 @@ export const authStorage = {
     sessionStorage.removeItem(TOKEN_KEY);
   },
 
-  isAuthenticated() {
-    return !!this.getToken();
+  isAuthenticated(): boolean {
+    return !!authStorage.getToken();
   },
 };

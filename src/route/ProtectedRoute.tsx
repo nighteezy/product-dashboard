@@ -1,11 +1,11 @@
+import { AuthContext } from "@/features/auth/model/authProvider";
+import { useContext, type JSX } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../features/auth/hooks";
-import type { JSX } from "react";
 
 export const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { isAuth } = useAuth();
+  const auth = useContext(AuthContext);
 
-  if (!isAuth) {
+  if (!auth?.isAuth) {
     return <Navigate to="/" replace />;
   }
 
