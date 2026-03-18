@@ -1,3 +1,10 @@
+import { LoginForm } from "./components";
+import * as S from "./units";
+
 export const LoginPage = () => {
-  return <div>Login Page</div>;
+  return (
+    <S.PageWrapper>
+      <LoginForm />
+    </S.PageWrapper>
+  );
 };
