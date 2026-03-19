@@ -1,182 +1,150 @@
 import styled from "styled-components";
 
+import { tokens } from "styles/tokens";
+
 export const TableContainer = styled.div`
-  background: #fff;
-  border-radius: 12px;
+  background: ${tokens.color.white};
+  border-radius: ${tokens.radius.md};
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+`;
+
+export const TableScrollWrapper = styled.div`
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 export const Table = styled.table`
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
+
+  tbody {
+    font-family: "Open Sans", sans-serif;
+  }
 `;
 
-export const TableHeader = styled.th`
-  padding: 16px;
-  text-align: left;
-  font-size: 13px;
-  font-weight: 500;
-  color: #666;
-  border-bottom: 1px solid #e0e0e0;
-  background: #fafafa;
+export const TableHeader = styled.th<{
+  $center?: boolean;
+  $checkbox?: boolean;
+}>`
+  padding: ${tokens.spacing.tableHeaderX} ${tokens.spacing[10]};
+  text-align: ${({ $center }) => ($center ? "center" : "left")};
+  font-family: "Cairo", sans-serif;
+  font-size: 16px;
+  font-weight: ${tokens.typography.fontWeight.medium};
+  color: ${tokens.color.gray[550]};
+  background: ${tokens.color.white};
+  ${({ $checkbox }) =>
+    $checkbox &&
+    `
+    width: 48px;
+
+  `}
 `;
 
 export const TableRow = styled.tr`
-  &:hover {
-    background: #f9f9f9;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid #f0f0f0;
-  }
+  border-bottom: 1px solid ${tokens.color.gray[300]};
 `;
 
-export const TableCell = styled.td`
-  padding: 16px;
-  font-size: 14px;
-  color: #1a1a1a;
-`;
-
-// Чекбокс
 export const Checkbox = styled.input`
   width: 18px;
   height: 18px;
+  min-width: 18px;
   cursor: pointer;
-  accent-color: #2f47e8;
-`;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid ${tokens.color.gray[400]};
+  border-radius: 4px;
+  background: ${tokens.color.white};
+  position: relative;
 
-// Информация о товаре
-export const ProductInfo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-export const ProductImage = styled.div`
-  width: 48px;
-  height: 48px;
-  background: #e0e0e0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  &:checked {
+    background: ${tokens.color.selected};
+    border-color: ${tokens.color.selected};
   }
 `;
 
-export const ProductDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-export const ProductName = styled.div`
-  font-weight: 500;
-  color: #1a1a1a;
-`;
-
-export const ProductCategory = styled.div`
-  font-size: 12px;
-  color: #999;
-`;
-
-// Рейтинг
-export const Rating = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: #1a1a1a;
-  font-weight: 500;
-`;
-
-// Цена
-export const Price = styled.div`
-  font-weight: 500;
-  color: #1a1a1a;
-`;
-
-// Кнопки действий
-export const ActionButtons = styled.div`
-  display: flex;
-  gap: 8px;
-`;
-
-export const ActionButton = styled.button`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid #e0e0e0;
-  background: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-
-  &:hover {
-    background: #f5f5f5;
-  }
-`;
-
-// Пагинация
 export const Pagination = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 24px;
-  padding: 0 8px;
+  flex-wrap: wrap;
+  gap: ${tokens.spacing[6]};
+  margin-top: ${tokens.spacing[12]};
+  padding: 0 ${tokens.spacing[3]};
+
+  @media (max-width: ${tokens.breakpoint.sm}) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 export const PaginationInfo = styled.div`
-  font-size: 14px;
-  color: #666;
+  font-size: ${tokens.typography.fontSize.base};
+  color: ${tokens.color.gray[600]};
 `;
 
 export const PaginationButtons = styled.div`
   display: flex;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: ${tokens.spacing[1]};
+  align-items: center;
+  justify-content: center;
 `;
 
-export const PageButton = styled.button`
-  padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-  background: #fff;
-  border-radius: 6px;
+export const PageButton = styled.button<{ $active?: boolean }>`
+  padding: ${tokens.spacing[3]} ${tokens.spacing[6]};
+  border: 1px solid
+    ${({ $active }) =>
+      $active ? tokens.color.primary : tokens.color.gray[300]};
+  background: ${({ $active }) =>
+    $active ? tokens.color.primary : tokens.color.white};
+  color: ${({ $active }) =>
+    $active ? tokens.color.white : tokens.color.gray[800]};
+  border-radius: ${tokens.radius.sm};
   cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
+  font-size: ${tokens.typography.fontSize.base};
+  transition: all ${tokens.transition.fast};
 
   &:hover {
-    background: #f5f5f5;
+    background: ${({ $active }) =>
+      $active ? tokens.color.primaryHover : tokens.color.gray[100]};
   }
 `;
 
 export const LoadingWrapper = styled.div`
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${tokens.spacing[6]};
+  padding: ${tokens.spacing[24]};
   text-align: center;
 `;
 
-export const Loader = styled.div`
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #4f46e5, #a5b4fc);
-  animation: loading 1.2s infinite;
+export const Spinner = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 3px solid ${tokens.color.gray[300]};
+  border-top-color: ${tokens.color.primary};
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 
-  @keyframes loading {
-    0% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.3;
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
   }
+`;
+
+export const LoadingTitle = styled.span`
+  font-size: ${tokens.typography.fontSize.base};
+  font-weight: ${tokens.typography.fontWeight.medium};
+  color: ${tokens.color.gray[600]};
+`;
+
+export const EmptyCell = styled.td`
+  padding: ${tokens.spacing[24]};
+  text-align: center;
+  color: ${tokens.color.gray[500]};
+  font-size: ${tokens.typography.fontSize.base};
 `;

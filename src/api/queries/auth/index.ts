@@ -1,6 +1,6 @@
-import { loginApi } from "@/api/auth";
-import type { LoginRequest, LoginResponse } from "@/api/auth/types";
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { loginApi } from "../../auth";
+import type { LoginRequest, LoginResponse } from "../../auth/types";
+import { useAuth } from "features/auth/hooks/useAuth";
 import { useMutation } from "@tanstack/react-query";
 
 export const LOGIN_KEY = "login";

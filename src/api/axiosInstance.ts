@@ -1,9 +1,11 @@
 import axios from "axios";
-import { authStorage } from "../features/auth/lib/authStorage";
 
-export const axiosInstance = axios.create({
-  baseURL: "https://dummyjson.com",
-});
+import { authStorage } from "features/auth/lib/authStorage";
+
+const baseURL =
+  import.meta.env.VITE_API_URL || "https://dummyjson.com";
+
+export const axiosInstance = axios.create({ baseURL });
 
 axiosInstance.interceptors.request.use((config) => {
   const token = authStorage.getToken();

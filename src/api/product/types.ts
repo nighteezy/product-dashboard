@@ -4,10 +4,12 @@ export interface Product {
   price: number;
   rating: number;
   brand: string;
-  images: string;
+  images: string | string[];
+  thumbnail?: string;
   category: string;
-  vendor: string;
-  sku: string;
+  vendor?: string;
+  sku?: string;
+  stock?: number;
 }
 
 export interface ProductsResponse {

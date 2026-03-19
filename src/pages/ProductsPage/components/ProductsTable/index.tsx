@@ -1,50 +1,88 @@
-import { useMemo, useState, type FC } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 
-import type { ProductsTableProps, SortKey, SortOrder } from "./types";
+import { NotFound } from "../NotFound";
+import { ProductRow } from "./components";
+import {
+  ITEMS_PER_PAGE,
+  TABLE_COLS_COUNT,
+  VISIBLE_PAGE_BUTTONS,
+} from "./const";
+import type {
+  ProductsTableProps,
+  SortKey,
+  SortOrder,
+} from "./types";
 import * as S from "./units";
+import {
+  getPaginatedSlice,
+  getSelectAllNextState,
+  getTotalPages,
+  getVisiblePageNumbers,
+  sortProducts,
+  toggleSelection,
+} from "./utils";
 
 export const ProductsTable: FC<ProductsTableProps> = ({
   products,
   isLoading,
+  sortKey: sortKeyProp = null,
+  sortOrder: sortOrderProp = "asc",
+  onSortChange,
 }) => {
-  const [sortKey, setSortKey] = useState<SortKey | null>(null);
-  const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
+  const [internalSortKey, setInternalSortKey] = useState<SortKey | null>(null);
+  const [internalSortOrder, setInternalSortOrder] = useState<SortOrder>("asc");
 
-  // Сортировка
-  const sortedProducts = useMemo(() => {
-    if (!sortKey) return products;
+  const sortKey = onSortChange ? sortKeyProp : internalSortKey;
+  const sortOrder = onSortChange ? sortOrderProp : internalSortOrder;
 
-    return [...products].sort((a, b) => {
-      const aValue =
-        a[sortKey] ??
-        (sortKey === "title" || sortKey === "vendor" || sortKey === "sku"
-          ? ""
-          : 0);
-      const bValue =
-        b[sortKey] ??
-        (sortKey === "title" || sortKey === "vendor" || sortKey === "sku"
-          ? ""
-          : 0);
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
 
-      if (typeof aValue === "number" && typeof bValue === "number") {
-        return sortOrder === "asc" ? aValue - bValue : bValue - aValue;
-      }
+  const sortedProducts = sortProducts(products, sortKey, sortOrder);
 
-      return sortOrder === "asc"
-        ? String(aValue).localeCompare(String(bValue))
-        : String(bValue).localeCompare(String(aValue));
-    });
-  }, [products, sortKey, sortOrder]);
+  const totalCount = sortedProducts.length;
+  const totalPages = getTotalPages(totalCount, ITEMS_PER_PAGE);
+  const { items: paginatedProducts, startIndex, endIndex } = getPaginatedSlice(
+    sortedProducts,
+    currentPage,
+    ITEMS_PER_PAGE,
+  );
 
   const handleSort = (key: SortKey) => {
-    if (sortKey === key) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    const newOrder =
+      sortKey === key ? (sortOrder === "asc" ? "desc" : "asc") : "asc";
+    if (onSortChange) {
+      onSortChange(key, newOrder);
     } else {
-      setSortKey(key);
-      setSortOrder("asc");
+      setInternalSortKey(key);
+      setInternalSortOrder(newOrder);
     }
   };
+
+  const handleRowSelect = (productId: number) => {
+    setSelectedIds((prev) => toggleSelection(prev, productId));
+  };
+
+  const handleSelectAll = () => {
+    setSelectedIds((prev) =>
+      getSelectAllNextState(
+        prev,
+        paginatedProducts.map((p) => p.id),
+      ),
+    );
+  };
+
+  const isAllSelected =
+    paginatedProducts.length > 0 &&
+    paginatedProducts.every((p) => selectedIds.has(p.id));
+  const isSomeSelected = paginatedProducts.some((p) => selectedIds.has(p.id));
+
+  const headerCheckboxRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const el = headerCheckboxRef.current;
+    if (el) el.indeterminate = isSomeSelected && !isAllSelected;
+  }, [isSomeSelected, isAllSelected]);
 
   const renderSortIcon = (key: SortKey) => {
     if (sortKey !== key) return null;
@@ -55,102 +93,107 @@ export const ProductsTable: FC<ProductsTableProps> = ({
 
   return (
     <S.TableContainer>
-      <S.Table>
-        <thead>
-          <tr>
-            <S.TableHeader>
-              <S.Checkbox type="checkbox" />
-            </S.TableHeader>
-            <S.TableHeader onClick={() => handleSort("title")}>
-              Наименование {renderSortIcon("title")}
-            </S.TableHeader>
-            <S.TableHeader onClick={() => handleSort("vendor")}>
-              Вендор {renderSortIcon("vendor")}
-            </S.TableHeader>
-            <S.TableHeader onClick={() => handleSort("sku")}>
-              Артикул {renderSortIcon("sku")}
-            </S.TableHeader>
-            <S.TableHeader onClick={() => handleSort("rating")}>
-              Оценка {renderSortIcon("rating")}
-            </S.TableHeader>
-            <S.TableHeader onClick={() => handleSort("price")}>
-              Цена, ₽ {renderSortIcon("price")}
-            </S.TableHeader>
-            <S.TableHeader></S.TableHeader>
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading ? (
-            <S.LoadingWrapper>
-              <S.Loader />
-            </S.LoadingWrapper>
-          ) : isEmpty ? (
-            <S.TableRow>
-              <S.TableCell
-                colSpan={7}
-                style={{ textAlign: "center", padding: "40px", color: "#999" }}
+      <S.TableScrollWrapper>
+        <S.Table>
+          <thead>
+            <tr>
+              <S.TableHeader
+                $center
+                $checkbox
+                onClick={(e) => e.stopPropagation()}
               >
-                🔍 Товары не найдены
-              </S.TableCell>
-            </S.TableRow>
-          ) : (
-            sortedProducts.map((product) => (
-              <S.TableRow key={product.id}>
-                <S.TableCell>
-                  <S.Checkbox type="checkbox" />
-                </S.TableCell>
-                <S.TableCell>
-                  <S.ProductInfo>
-                    <S.ProductImage>
-                      {product.images ? (
-                        <img src={product.images} alt={product.title} />
-                      ) : (
-                        <span>📦</span>
-                      )}
-                    </S.ProductImage>
-                    <S.ProductDetails>
-                      <S.ProductName>{product.title}</S.ProductName>
-                      <S.ProductCategory>
-                        {product.category || "Категория"}
-                      </S.ProductCategory>
-                    </S.ProductDetails>
-                  </S.ProductInfo>
-                </S.TableCell>
-                <S.TableCell>{product.vendor || "Vendor"}</S.TableCell>
-                <S.TableCell>{product.sku || "N/A"}</S.TableCell>
-                <S.TableCell>
-                  <S.Rating>
-                    <span>⭐</span>
-                    <span>{product.rating?.toFixed(1) || "0.0"}</span>
-                  </S.Rating>
-                </S.TableCell>
-                <S.TableCell>
-                  <S.Price>{product.price?.toFixed(2) || "0.00"}</S.Price>
-                </S.TableCell>
-                <S.TableCell>
-                  <S.ActionButtons>
-                    <S.ActionButton>+</S.ActionButton>
-                    <S.ActionButton>🗑</S.ActionButton>
-                  </S.ActionButtons>
-                </S.TableCell>
+                <S.Checkbox
+                  ref={headerCheckboxRef}
+                  type="checkbox"
+                  checked={isAllSelected}
+                  disabled={isEmpty || isLoading}
+                  onChange={handleSelectAll}
+                />
+              </S.TableHeader>
+              <S.TableHeader onClick={() => handleSort("title")}>
+                Наименование {renderSortIcon("title")}
+              </S.TableHeader>
+              <S.TableHeader $center onClick={() => handleSort("vendor")}>
+                Вендор {renderSortIcon("vendor")}
+              </S.TableHeader>
+              <S.TableHeader $center onClick={() => handleSort("sku")}>
+                Артикул {renderSortIcon("sku")}
+              </S.TableHeader>
+              <S.TableHeader $center onClick={() => handleSort("rating")}>
+                Оценка {renderSortIcon("rating")}
+              </S.TableHeader>
+              <S.TableHeader $center onClick={() => handleSort("price")}>
+                Цена, ₽ {renderSortIcon("price")}
+              </S.TableHeader>
+              <S.TableHeader $center>Количество</S.TableHeader>
+              <S.TableHeader $center></S.TableHeader>
+            </tr>
+          </thead>
+          <tbody>
+            {isLoading ? (
+              <tr>
+                <S.EmptyCell colSpan={TABLE_COLS_COUNT}>
+                  <S.LoadingWrapper>
+                    <S.Spinner />
+                    <S.LoadingTitle>Загрузка данных</S.LoadingTitle>
+                  </S.LoadingWrapper>
+                </S.EmptyCell>
+              </tr>
+            ) : isEmpty ? (
+              <S.TableRow>
+                <S.EmptyCell colSpan={TABLE_COLS_COUNT}>
+                  <NotFound />
+                </S.EmptyCell>
               </S.TableRow>
-            ))
-          )}
-        </tbody>
-      </S.Table>
+            ) : (
+              paginatedProducts.map((product) => (
+                <ProductRow
+                  key={product.id}
+                  product={product}
+                  isSelected={selectedIds.has(product.id)}
+                  onSelect={() => handleRowSelect(product.id)}
+                />
+              ))
+            )}
+          </tbody>
+        </S.Table>
+      </S.TableScrollWrapper>
 
       <S.Pagination>
         <S.PaginationInfo>
-          Показано 1-20 из {sortedProducts.length}
+          Показано {isEmpty ? 0 : startIndex + 1}-{endIndex} из {totalCount}
         </S.PaginationInfo>
         <S.PaginationButtons>
-          <S.PageButton>&lt;</S.PageButton>
-          <S.PageButton>1</S.PageButton>
-          <S.PageButton>2</S.PageButton>
-          <S.PageButton>3</S.PageButton>
-          <S.PageButton>4</S.PageButton>
-          <S.PageButton>5</S.PageButton>
-          <S.PageButton>&gt;</S.PageButton>
+          <S.PageButton
+            type="button"
+            $active={false}
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          >
+            ‹
+          </S.PageButton>
+          {getVisiblePageNumbers(
+            currentPage,
+            totalPages,
+            VISIBLE_PAGE_BUTTONS,
+          ).map((page) => (
+            <S.PageButton
+              key={page}
+              type="button"
+              $active={currentPage === page}
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </S.PageButton>
+          ))}
+          <S.PageButton
+            type="button"
+            $active={false}
+            onClick={() =>
+              setCurrentPage((p) => Math.min(totalPages, p + 1))
+            }
+          >
+            ›
+          </S.PageButton>
         </S.PaginationButtons>
       </S.Pagination>
     </S.TableContainer>

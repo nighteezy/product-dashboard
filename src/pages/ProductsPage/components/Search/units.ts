@@ -1,56 +1,62 @@
 import styled from "styled-components";
 
-export const SearchContainer = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+import { tokens } from "styles/tokens";
 
+export const SearchContainer = styled.div`
+  position: relative;
   width: 100%;
   max-width: 1023px;
-  max-height: 48px;
-  height: 100%;
+  height: 48px;
+  min-height: 48px;
 `;
 
 export const SearchInput = styled.input`
   width: 100%;
   height: 100%;
-  padding: 12px 0 12px 52px;
-  border: 1px solid #cfcfcf;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #f9f9f9;
+  min-height: 48px;
+  padding: 0 40px 0 48px;
+  border: 1px solid ${tokens.color.gray[400]};
+  border-radius: ${tokens.radius.sm};
+  font-size: ${tokens.typography.fontSize.base};
+  background: ${tokens.color.gray[100]};
+  box-sizing: border-box;
 
   &::placeholder {
-    color: #999;
+    color: ${tokens.color.gray[500]};
   }
 `;
 
 export const SearchIcon = styled.span`
   position: absolute;
-  left: 20px;
-  top: 12px;
-  color: #999;
+  left: 16px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${tokens.color.gray[500]};
+  pointer-events: none;
 `;
 
 export const ClearButton = styled.button`
   position: absolute;
   right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #999;
-  cursor: pointer;
-  padding: 4px 8px;
-  font-size: 16px;
+  top: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s;
+  background: none;
+  border: none;
+  color: ${tokens.color.gray[500]};
+  cursor: pointer;
+  padding: 0 8px;
+  font-size: 16px;
+  border-radius: ${tokens.radius.sm};
+  transition: all ${tokens.transition.fast};
 
   &:hover {
-    background: #f5f5f5;
-    color: #666;
+    background: ${tokens.color.gray[200]};
+    color: ${tokens.color.gray[600]};
   }
 `;

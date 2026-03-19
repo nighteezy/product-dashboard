@@ -1,8 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { useAuth } from "./features/auth/hooks/useAuth";
-import { LoginPage, ProductsPage } from "./pages";
-import { GlobalStyles } from "./styles/GlobalStyles";
+import { useAuth } from "features/auth/hooks/useAuth";
+import { LoginPage, ProductsPage } from "pages";
+import { GlobalStyles } from "styles/GlobalStyles";
 
 function App() {
   const isAuth = useAuth((state) => state.isAuth);

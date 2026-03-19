@@ -17,7 +17,7 @@ export const useSearchProductsQuery = (query: string) => {
     queryKey: [PRODUCTS_KEY, "search", query],
     queryFn: () => searchProducts(query).then((res) => res.data.products),
 
-    enabled: Boolean(query),
+    enabled: Boolean(query.trim()),
     placeholderData: keepPreviousData,
   });
 };

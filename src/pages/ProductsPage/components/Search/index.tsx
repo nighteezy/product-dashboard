@@ -1,7 +1,8 @@
 import { type FC } from "react";
-import * as S from "./units";
 import { FiSearch } from "react-icons/fi";
+
 import type { SearchProps } from "./types";
+import * as S from "./units";
 
 export const Search: FC<SearchProps> = ({
   value,

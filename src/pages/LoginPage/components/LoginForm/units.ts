@@ -1,53 +1,64 @@
 import styled from "styled-components";
 
+import { tokens } from "styles/tokens";
+
 export const Container = styled.div`
   max-width: 527px;
   max-height: 716px;
 
-  padding: 48px;
+  padding: ${tokens.spacing[24]};
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: ${tokens.spacing[16]};
 
-  border-radius: 40px;
-  border: 6px solid #fff;
+  border-radius: ${tokens.radius.lg};
+  border: 6px solid ${tokens.color.white};
 
-  background-color: #ffffff;
-  box-shadow: 0px 24px 32px 0px rgba(0, 0, 0, 0.04);
+  background:
+    linear-gradient(
+      to bottom,
+      ${tokens.color.gradient.start} 0%,
+      ${tokens.color.gradient.end} 85%
+    ),
+    ${tokens.color.white};
+  box-shadow: ${tokens.shadow.card.top}, ${tokens.shadow.card.bottom};
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: ${tokens.spacing[6]};
 `;
 
 export const Title = styled.h1`
   text-align: center;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 110%;
+  font-size: ${tokens.typography.fontSize.xl};
+  font-weight: ${tokens.typography.fontWeight.semibold};
+  line-height: ${tokens.typography.lineHeight.tight};
 `;
 
 export const Subtitle = styled.p`
   text-align: center;
-  color: #e0e0e0;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 150%;
+  color: ${tokens.color.gray[300]};
+  font-size: ${tokens.typography.fontSize.lg};
+  font-weight: ${tokens.typography.fontWeight.normal};
+  line-height: ${tokens.typography.lineHeight.normal};
 `;
 
 export const LogoWrapper = styled.div`
-  padding: 9px 8.5px;
-  border: 1px solid #ededed;
+  padding: ${tokens.spacing[4]} ${tokens.spacing.logoPaddingX};
 
-  border-radius: 100px;
-  background: #fff;
-  box-shadow:
-    inset 0px 0px 0px 2px #ffffff,
-    0px 12px 8px 0px rgba(0, 0, 0, 0.03);
+  border-radius: ${tokens.radius.full};
+  background:
+    linear-gradient(
+      to bottom,
+      ${tokens.color.gradient.startLogo} 0%,
+      ${tokens.color.gradient.end} 45%
+    ),
+    ${tokens.color.white};
+  box-shadow: ${tokens.shadow.logo.outline}, ${tokens.shadow.logo.drop};
 
   width: 52px;
   height: 52px;
@@ -60,109 +71,51 @@ export const LogoWrapper = styled.div`
 export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: ${tokens.spacing[8]};
   width: 100%;
   max-width: 400px;
-`;
-
-export const FieldLabel = styled.label`
-  font-size: 18px;
-  font-weight: 500;
-
-  color: #232323;
-
-  margin-bottom: 6px;
-  display: block;
-`;
-
-export const InputWrapper = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-
-  border-radius: 12px;
-`;
-
-export const LeftIcon = styled.span`
-  position: absolute;
-  left: 14px;
-  color: #999;
-  display: flex;
-  align-items: center;
-  pointer-events: none;
-`;
-
-export const RightIcon = styled.button`
-  position: absolute;
-  right: 16px;
-  background: none;
-  border: none;
-  color: #999;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 4px;
-
-  &:hover {
-    color: #666;
-  }
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  padding: 14px 48px 14px 48px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  font-size: 16px;
-  background: #fff;
-  transition: all 0.2s;
-
-  &:focus {
-    outline: none;
-    border-color: #2f47e8;
-    box-shadow: 0 0 0 3px rgba(47, 71, 232, 0.1);
-  }
-
-  &::placeholder {
-    color: #999;
-  }
 `;
 
 export const CheckboxWrapper = styled.label`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: ${tokens.spacing[5]};
   cursor: pointer;
-  font-size: 14px;
-  color: #666;
+  font-size: ${tokens.typography.fontSize.base};
+  color: ${tokens.color.gray[600]};
 `;
 
 export const Checkbox = styled.input`
   width: 20px;
   height: 20px;
-  border: 2px solid #d0d0d0;
-  border-radius: 4px;
+  border: 2px solid ${tokens.color.gray[400]};
+  border-radius: ${tokens.radius.sm};
 
-  accent-color: #2f47e8;
+  accent-color: ${tokens.color.primary};
 `;
 
-export const LoginButton = styled.button`
+export const LoginButton = styled.button<{ $isLoading?: boolean }>`
   width: 100%;
-  padding: 16px 24px;
+  padding: ${tokens.spacing[8]} ${tokens.spacing[12]};
 
-  background: #2f47e8;
-  color: #fff;
+  background: ${tokens.color.primary};
+  color: ${tokens.color.white};
 
-  border: 1px solid #367aff;
-  border-radius: 12px;
+  border: 1px solid ${tokens.color.primaryBorder};
+  border-radius: ${tokens.radius.md};
 
-  font-size: 16px;
-  font-weight: 600;
+  font-size: ${tokens.typography.fontSize.md};
+  font-weight: ${tokens.typography.fontWeight.semibold};
 
-  transition: all 0.2s;
+  transition: all ${tokens.transition.fast};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${tokens.spacing[3]};
 
   &:hover:not(:disabled) {
-    background: #1e34c9;
+    background: ${tokens.color.primaryHover};
     transform: translateY(-1px);
   }
 
@@ -171,32 +124,80 @@ export const LoginButton = styled.button`
   }
 
   &:disabled {
-    background: #999;
-    cursor: not-allowed;
-    opacity: 0.7;
+    cursor: ${({ $isLoading }) => ($isLoading ? "wait" : "not-allowed")};
+    opacity: ${({ $isLoading }) => ($isLoading ? "0.85" : "0.7")};
+    ${({ $isLoading }) =>
+      !$isLoading && `background: ${tokens.color.disabled};`}
   }
+`;
+
+export const Spinner = styled.span`
+  width: 18px;
+  height: 18px;
+  border: 2px solid ${tokens.color.spinnerBorderLight};
+  border-top-color: ${tokens.color.white};
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+export const ApiErrorWrapper = styled.div`
+  animation: apiErrorIn ${tokens.transition.normal} ease-out forwards;
+
+  @keyframes apiErrorIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+export const ApiErrorMessage = styled.p`
+  color: ${tokens.color.error};
+  font-size: ${tokens.typography.fontSize.sm};
 `;
 
 export const Divider = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
-  color: #999;
-  font-size: 14px;
-  margin: 8px 0;
+  gap: ${tokens.spacing[8]};
+  color: ${tokens.color.gray[500]};
+  font-size: ${tokens.typography.fontSize.base};
+  margin: ${tokens.spacing[3]} 0;
 
   &::before,
   &::after {
     content: "";
     flex: 1;
     height: 1px;
-    background: #e0e0e0;
+    background: ${tokens.color.gray[300]};
   }
 `;
 
-export const ErrorMessage = styled.p`
-  color: #ff4444;
-  font-size: 13px;
-  margin-top: 6px;
-  margin-left: 4px;
+export const SignupPrompt = styled.p`
+  font-size: ${tokens.typography.fontSize.lg};
+  color: ${tokens.color.gray[700]};
+  text-align: center;
+`;
+
+export const SignupLink = styled.span`
+  font-size: ${tokens.typography.fontSize.lg};
+  font-weight: ${tokens.typography.fontWeight.bold};
+  color: ${tokens.color.link};
+  border-bottom: 1px solid currentColor;
+  padding-bottom: ${tokens.spacing[0]};
+  cursor: pointer;
+
+  &:hover {
+    color: ${tokens.color.linkHover};
+  }
 `;
