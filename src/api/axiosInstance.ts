@@ -1,6 +1,8 @@
 import axios from "axios";
 
+import { triggerUnauthorized } from "./authListener";
 import { authStorage } from "features/auth/lib/authStorage";
+import { useAuth } from "features/auth/hooks/useAuth";
 
 const baseURL =
   import.meta.env.VITE_API_URL || "https://dummyjson.com";
@@ -22,8 +24,8 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       authStorage.removeToken();
-
-      window.location.href = "/";
+      useAuth.getState().logout();
+      triggerUnauthorized();
     }
 
     return Promise.reject(error);

@@ -1,18 +1,13 @@
 import { useEffect, useRef, useState, type FC } from "react";
-import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 
 import { NotFound } from "../NotFound";
-import { ProductRow } from "./components";
+import { ProductRow, SortIcon } from "./components";
 import {
   ITEMS_PER_PAGE,
   TABLE_COLS_COUNT,
   VISIBLE_PAGE_BUTTONS,
 } from "./const";
-import type {
-  IProductsTable,
-  SortKey,
-  SortOrder,
-} from "./types";
+import type { IProductsTable, SortKey } from "./types";
 import * as S from "./units";
 import {
   getPaginatedSlice,
@@ -26,16 +21,10 @@ import {
 export const ProductsTable: FC<IProductsTable> = ({
   products,
   isLoading,
-  sortKey: sortKeyProp = null,
-  sortOrder: sortOrderProp = "asc",
+  sortKey = null,
+  sortOrder = "asc",
   onSortChange,
 }) => {
-  const [internalSortKey, setInternalSortKey] = useState<SortKey | null>(null);
-  const [internalSortOrder, setInternalSortOrder] = useState<SortOrder>("asc");
-
-  const sortKey = onSortChange ? sortKeyProp : internalSortKey;
-  const sortOrder = onSortChange ? sortOrderProp : internalSortOrder;
-
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -52,12 +41,7 @@ export const ProductsTable: FC<IProductsTable> = ({
   const handleSort = (key: SortKey) => {
     const newOrder =
       sortKey === key ? (sortOrder === "asc" ? "desc" : "asc") : "asc";
-    if (onSortChange) {
-      onSortChange(key, newOrder);
-    } else {
-      setInternalSortKey(key);
-      setInternalSortOrder(newOrder);
-    }
+    onSortChange(key, newOrder);
   };
 
   const handleRowSelect = (productId: number) => {
@@ -84,11 +68,6 @@ export const ProductsTable: FC<IProductsTable> = ({
     if (el) el.indeterminate = isSomeSelected && !isAllSelected;
   }, [isSomeSelected, isAllSelected]);
 
-  const renderSortIcon = (key: SortKey) => {
-    if (sortKey !== key) return null;
-    return sortOrder === "asc" ? <FiArrowUp /> : <FiArrowDown />;
-  };
-
   const isEmpty = !isLoading && sortedProducts.length === 0;
 
   return (
@@ -112,27 +91,52 @@ export const ProductsTable: FC<IProductsTable> = ({
               </S.TableHeader>
               <S.TableHeader onClick={() => handleSort("title")}>
                 <S.SortableHeaderContent $alignLeft>
-                  Наименование {renderSortIcon("title")}
+                  Наименование{" "}
+                  <SortIcon
+                    columnKey="title"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                  />
                 </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("vendor")}>
                 <S.SortableHeaderContent>
-                  Вендор {renderSortIcon("vendor")}
+                  Вендор{" "}
+                  <SortIcon
+                    columnKey="vendor"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                  />
                 </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("sku")}>
                 <S.SortableHeaderContent>
-                  Артикул {renderSortIcon("sku")}
+                  Артикул{" "}
+                  <SortIcon
+                    columnKey="sku"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                  />
                 </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("rating")}>
                 <S.SortableHeaderContent>
-                  Оценка {renderSortIcon("rating")}
+                  Оценка{" "}
+                  <SortIcon
+                    columnKey="rating"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                  />
                 </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("price")}>
                 <S.SortableHeaderContent>
-                  Цена, ₽ {renderSortIcon("price")}
+                  Цена, ₽{" "}
+                  <SortIcon
+                    columnKey="price"
+                    sortKey={sortKey}
+                    sortOrder={sortOrder}
+                  />
                 </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center>Количество</S.TableHeader>

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useLoginMutation } from "api/queries/auth/index";
 import { parseLoginError } from "features/auth/lib/parseLoginError";
+import { ROUTES } from "routes";
 import { loginSchema, type LoginFormData } from "features/auth/model/schema";
 
 import logo from "assets/images/logo.svg";
@@ -48,7 +49,7 @@ export const LoginForm = () => {
       {
         onSuccess: () => {
           toast.success("Успешный вход");
-          navigate("/products");
+          navigate(ROUTES.PRODUCTS);
         },
         onError: (error) => {
           setApiError(parseLoginError(error));

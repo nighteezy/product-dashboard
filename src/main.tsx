@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 
-import { queryClient } from "api/queries/queryClients";
+import { queryClient } from "api/queries/queryClient";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import App from "src/App";
 

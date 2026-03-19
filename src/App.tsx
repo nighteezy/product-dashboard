@@ -1,26 +1,32 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { useAuth } from "features/auth/hooks/useAuth";
+import { AuthSync } from "components/AuthSync";
 import { LoginPage, ProductsPage } from "pages";
+import { ProtectedRoute, PublicRoute, ROUTES } from "routes";
 import { GlobalStyles } from "styles/GlobalStyles";
 
 function App() {
-  const isAuth = useAuth((state) => state.isAuth);
-
   return (
     <>
       <GlobalStyles />
       <BrowserRouter>
+        <AuthSync />
         <Routes>
           <Route
-            path="/"
+            path={ROUTES.LOGIN}
             element={
-              isAuth ? <Navigate to="/products" replace /> : <LoginPage />
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
             }
           />
           <Route
-            path="/products"
-            element={isAuth ? <ProductsPage /> : <Navigate to="/" replace />}
+            path={ROUTES.PRODUCTS}
+            element={
+              <ProtectedRoute>
+                <ProductsPage />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </BrowserRouter>

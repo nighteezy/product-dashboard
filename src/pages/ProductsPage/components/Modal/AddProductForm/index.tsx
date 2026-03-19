@@ -1,56 +1,32 @@
-import { type FC, useState } from "react";
+import { type FC } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 import { FormField } from "components";
 
-import type {
-  AddProductFormData,
-  IAddProductForm,
-} from "./types";
+import type { IAddProductForm } from "./types";
+import { addProductSchema, type AddProductFormData } from "./types";
 import * as S from "./units";
 
-const INITIAL_DATA: AddProductFormData = {
-  title: "",
-  price: "",
-  vendor: "",
-  sku: "",
-};
-
 export const AddProductForm: FC<IAddProductForm> = ({ onSubmit }) => {
-  const [data, setData] = useState<AddProductFormData>(INITIAL_DATA);
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof AddProductFormData, string>>
-  >({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<AddProductFormData>({
+    resolver: zodResolver(addProductSchema),
+    defaultValues: {
+      title: "",
+      price: "",
+      vendor: "",
+      sku: "",
+    },
+  });
 
-  const updateField = (field: keyof AddProductFormData, value: string) => {
-    setData((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: undefined }));
-  };
-
-  const validate = (): boolean => {
-    const newErrors: Partial<Record<keyof AddProductFormData, string>> = {};
-
-    if (!data.title.trim()) {
-      newErrors.title = "Введите наименование";
-    }
-
-    const priceNum = parseFloat(data.price.replace(",", "."));
-    if (!data.price.trim()) {
-      newErrors.price = "Введите цену";
-    } else if (isNaN(priceNum) || priceNum < 0) {
-      newErrors.price = "Некорректная цена";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-
+  const onFormSubmit = (data: AddProductFormData) => {
     onSubmit(data);
-    setData(INITIAL_DATA);
-    setErrors({});
+    reset();
   };
 
   const renderField = (
@@ -62,19 +38,18 @@ export const AddProductForm: FC<IAddProductForm> = ({ onSubmit }) => {
     <FormField
       label={label}
       id={`add-product-${field}`}
-      error={errors[field]}
+      error={errors[field]?.message}
       inputProps={{
-        value: data[field],
-        onChange: (e) => updateField(field, e.target.value),
         placeholder,
         "aria-invalid": !!errors[field],
+        ...register(field),
         ...inputProps,
       }}
     />
   );
 
   return (
-    <S.Form onSubmit={handleSubmit}>
+    <S.Form onSubmit={handleSubmit(onFormSubmit)}>
       {renderField("title", "Наименование", "Введите наименование товара")}
       {renderField("price", "Цена, ₽", "0,00", {
         type: "text",

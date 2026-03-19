@@ -3,9 +3,9 @@ import type { Product } from "api/product/types";
 export interface IProductsTable {
   products: Product[];
   isLoading: boolean;
-  sortKey?: SortKey | null;
-  sortOrder?: SortOrder;
-  onSortChange?: (key: SortKey | null, order: SortOrder) => void;
+  sortKey: SortKey | null;
+  sortOrder: SortOrder;
+  onSortChange: (key: SortKey | null, order: SortOrder) => void;
 }
 
 export type SortKey = "title" | "vendor" | "sku" | "rating" | "price";

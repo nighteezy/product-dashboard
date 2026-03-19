@@ -17,6 +17,8 @@
       "features/*": ["./src/features/*"],
       "assets": ["./src/assets"],
       "assets/*": ["./src/assets/*"],
+      "routes": ["./src/routes"],
+      "routes/*": ["./src/routes/*"],
       "src": ["./src"],
       "src/*": ["./src/*"]
     }
