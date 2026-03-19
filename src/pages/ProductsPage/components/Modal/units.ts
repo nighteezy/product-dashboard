@@ -34,7 +34,7 @@ export const Header = styled.div`
 export const Title = styled.h3`
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-size: 20px;
+  font-size: ${tokens.typography.fontSize.lg};
   font-weight: ${tokens.typography.fontWeight.semibold};
   color: ${tokens.color.gray[800]};
   line-height: 1.5;

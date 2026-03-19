@@ -2,14 +2,17 @@ import styled from "styled-components";
 
 import { tokens } from "styles/tokens";
 
-export const FieldWrapper = styled.div``;
+export const FieldWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${tokens.spacing[2]};
+`;
 
 export const Label = styled.label`
   font-family: "Inter", sans-serif;
   font-size: ${tokens.typography.fontSize.lg};
   font-weight: ${tokens.typography.fontWeight.medium};
   color: ${tokens.color.gray[800]};
-  margin-bottom: ${tokens.spacing[2]};
   display: block;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

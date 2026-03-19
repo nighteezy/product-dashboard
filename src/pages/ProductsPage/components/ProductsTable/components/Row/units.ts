@@ -14,7 +14,7 @@ export const Row = styled.tr`
 export const CheckboxCell = styled.td<{ $selected?: boolean }>`
   position: relative;
   padding: ${tokens.spacing[8]};
-  font-size: 16px;
+  font-size: ${tokens.typography.fontSize.md};
   font-weight: ${tokens.typography.fontWeight.normal};
   color: ${tokens.color.gray[800]};
   text-align: center;
@@ -37,30 +37,13 @@ export const CheckboxCell = styled.td<{ $selected?: boolean }>`
 
 export const Cell = styled.td<{ $center?: boolean; $bold?: boolean }>`
   padding: ${tokens.spacing.tableCellX} ${tokens.spacing[10]};
-  font-size: 16px;
+  font-size: ${tokens.typography.fontSize.md};
   font-weight: ${({ $bold }) =>
     $bold
       ? tokens.typography.fontWeight.bold
       : tokens.typography.fontWeight.normal};
   color: ${tokens.color.gray[800]};
   text-align: ${({ $center }) => ($center ? "center" : "left")};
-`;
-
-export const Checkbox = styled.input`
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  border: 2px solid ${tokens.color.gray[400]};
-  border-radius: 4px;
-  background: ${tokens.color.white};
-
-  &:checked {
-    background: ${tokens.color.selected};
-    border-color: ${tokens.color.selected};
-  }
 `;
 
 export const ProductInfo = styled.div`
@@ -96,14 +79,14 @@ export const ProductDetails = styled.div`
 `;
 
 export const ProductName = styled.div`
-  font-size: 16px;
+  font-size: ${tokens.typography.fontSize.md};
   font-weight: ${tokens.typography.fontWeight.bold};
   line-height: 1.25;
   color: ${tokens.color.gray[800]};
 `;
 
 export const ProductCategory = styled.div`
-  font-size: 14px;
+  font-size: ${tokens.typography.fontSize.base};
   font-weight: ${tokens.typography.fontWeight.normal};
   line-height: 1.25;
   color: ${tokens.color.gray[650]};

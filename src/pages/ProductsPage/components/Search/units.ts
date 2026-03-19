@@ -51,7 +51,7 @@ export const ClearButton = styled.button`
   color: ${tokens.color.gray[500]};
   cursor: pointer;
   padding: 0 8px;
-  font-size: 16px;
+  font-size: ${tokens.typography.fontSize.md};
   border-radius: ${tokens.radius.sm};
   transition: all ${tokens.transition.fast};
 

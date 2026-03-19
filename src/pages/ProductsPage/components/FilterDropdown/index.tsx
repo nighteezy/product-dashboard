@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FiArrowDown, FiArrowUp, FiFilter } from "react-icons/fi";
 
 import type { IFilterDropdown } from "./types";
+import { IconButton } from "../../units";
 import * as S from "./units";
 import type { SortKey } from "../ProductsTable/types";
 import { SORT_OPTIONS } from "../../const";
@@ -40,14 +41,14 @@ export const FilterDropdown = ({
 
   return (
     <S.Wrapper ref={wrapperRef}>
-      <S.TriggerButton
+      <IconButton
         type="button"
         title="Фильтр"
         $active={isOpen}
         onClick={() => setIsOpen(!isOpen)}
       >
         <FiFilter size={22} />
-      </S.TriggerButton>
+      </IconButton>
       {isOpen && (
         <S.Dropdown>
           <S.Title>Сортировка</S.Title>

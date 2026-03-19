@@ -111,19 +111,29 @@ export const ProductsTable: FC<IProductsTable> = ({
                 />
               </S.TableHeader>
               <S.TableHeader onClick={() => handleSort("title")}>
-                Наименование {renderSortIcon("title")}
+                <S.SortableHeaderContent $alignLeft>
+                  Наименование {renderSortIcon("title")}
+                </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("vendor")}>
-                Вендор {renderSortIcon("vendor")}
+                <S.SortableHeaderContent>
+                  Вендор {renderSortIcon("vendor")}
+                </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("sku")}>
-                Артикул {renderSortIcon("sku")}
+                <S.SortableHeaderContent>
+                  Артикул {renderSortIcon("sku")}
+                </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("rating")}>
-                Оценка {renderSortIcon("rating")}
+                <S.SortableHeaderContent>
+                  Оценка {renderSortIcon("rating")}
+                </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center onClick={() => handleSort("price")}>
-                Цена, ₽ {renderSortIcon("price")}
+                <S.SortableHeaderContent>
+                  Цена, ₽ {renderSortIcon("price")}
+                </S.SortableHeaderContent>
               </S.TableHeader>
               <S.TableHeader $center>Количество</S.TableHeader>
               <S.TableHeader $center></S.TableHeader>

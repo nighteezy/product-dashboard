@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import { tokens } from "./tokens";
+
 export const GlobalStyles = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
@@ -9,8 +11,8 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: ${tokens.color.gray[100]};
+    color: ${tokens.color.gray[800]};
     line-height: 1.6;
   }
 

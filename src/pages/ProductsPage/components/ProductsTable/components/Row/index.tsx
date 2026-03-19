@@ -1,6 +1,7 @@
 import { FiMoreHorizontal, FiPackage, FiPlus } from "react-icons/fi";
 
 import type { IProductRow } from "./types";
+import { Checkbox } from "../../units";
 import * as S from "./units";
 import {
   formatPrice,
@@ -28,7 +29,7 @@ export const ProductRow = ({
         $selected={isSelected}
         onClick={(e) => e.stopPropagation()}
       >
-        <S.Checkbox type="checkbox" checked={isSelected} onChange={onSelect} />
+        <Checkbox type="checkbox" checked={isSelected} onChange={onSelect} />
       </S.CheckboxCell>
       <S.Cell>
         <S.ProductInfo>

@@ -30,16 +30,18 @@ export const TableHeader = styled.th<{
   padding: ${tokens.spacing.tableHeaderX} ${tokens.spacing[10]};
   text-align: ${({ $center }) => ($center ? "center" : "left")};
   font-family: "Cairo", sans-serif;
-  font-size: 16px;
+  font-size: ${tokens.typography.fontSize.md};
   font-weight: ${tokens.typography.fontWeight.medium};
   color: ${tokens.color.gray[550]};
   background: ${tokens.color.white};
-  ${({ $checkbox }) =>
-    $checkbox &&
-    `
-    width: 48px;
+  ${({ $checkbox }) => $checkbox && "width: 48px;"}
+`;
 
-  `}
+export const SortableHeaderContent = styled.span<{ $alignLeft?: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: ${({ $alignLeft }) => ($alignLeft ? "flex-start" : "center")};
+  gap: ${tokens.spacing[6]};
 `;
 
 export const TableRow = styled.tr`
@@ -54,7 +56,7 @@ export const Checkbox = styled.input`
   appearance: none;
   -webkit-appearance: none;
   border: 2px solid ${tokens.color.gray[400]};
-  border-radius: 4px;
+  border-radius: ${tokens.radius.sm};
   background: ${tokens.color.white};
   position: relative;
 

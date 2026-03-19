@@ -6,26 +6,6 @@ export const Wrapper = styled.div`
   position: relative;
 `;
 
-export const TriggerButton = styled.button<{ $active?: boolean }>`
-  padding: ${tokens.spacing[5]};
-  background: ${({ $active }) =>
-    $active ? tokens.color.primaryFocus : tokens.color.white};
-  border: 1px solid
-    ${({ $active }) =>
-      $active ? tokens.color.primary : tokens.color.gray[300]};
-  border-radius: ${tokens.spacing[3]};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all ${tokens.transition.fast};
-
-  &:hover {
-    background: ${({ $active }) =>
-      $active ? tokens.color.primaryFocus : tokens.color.gray[100]};
-  }
-`;
-
 export const Dropdown = styled.div`
   position: absolute;
   top: calc(100% + ${tokens.spacing[2]});

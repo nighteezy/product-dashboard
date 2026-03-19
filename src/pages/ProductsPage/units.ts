@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { tokens } from "styles/tokens";
 
 export const PageWrapper = styled.div`
-  padding-top: 20px;
+  padding-top: ${tokens.spacing[11]};
   background: ${tokens.color.gray[100]};
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: ${tokens.spacing[15]};
 `;
 
 export const PageHeader = styled.div`
@@ -18,7 +18,7 @@ export const PageHeader = styled.div`
   gap: ${tokens.spacing[8]};
   flex-wrap: wrap;
 
-  padding: 26px 30px;
+  padding: ${tokens.spacing[11]} ${tokens.spacing[15]};
 
   background-color: ${tokens.color.white};
 
@@ -105,9 +105,9 @@ export const Title = styled.h1`
 export const SectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: ${tokens.spacing[20]};
 
-  padding: 30px;
+  padding: ${tokens.spacing[15]};
   background-color: ${tokens.color.white};
 
   @media (max-width: ${tokens.breakpoint.md}) {
