@@ -84,6 +84,10 @@ export const PaginationInfo = styled.div`
   color: ${tokens.color.gray[600]};
 `;
 
+export const PaginationInfoNumbers = styled.span`
+  color: ${tokens.color.black};
+`;
+
 export const PaginationButtons = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -96,9 +100,9 @@ export const PageButton = styled.button<{ $active?: boolean }>`
   padding: ${tokens.spacing[3]} ${tokens.spacing[6]};
   border: 1px solid
     ${({ $active }) =>
-      $active ? tokens.color.primary : tokens.color.gray[300]};
+      $active ? tokens.color.paginationActive : tokens.color.gray[300]};
   background: ${({ $active }) =>
-    $active ? tokens.color.primary : tokens.color.white};
+    $active ? tokens.color.paginationActive : tokens.color.white};
   color: ${({ $active }) =>
     $active ? tokens.color.white : tokens.color.gray[800]};
   border-radius: ${tokens.radius.sm};
@@ -108,7 +112,7 @@ export const PageButton = styled.button<{ $active?: boolean }>`
 
   &:hover {
     background: ${({ $active }) =>
-      $active ? tokens.color.primaryHover : tokens.color.gray[100]};
+      $active ? tokens.color.paginationActive : tokens.color.gray[100]};
   }
 `;
 

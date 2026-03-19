@@ -9,7 +9,9 @@ export const tokens = {
     errorFocus: "rgba(255, 68, 68, 0.15)",
 
     white: "#ffffff",
+    black: "#000000",
     selected: "#3C538E",
+    paginationActive: "#797FEA",
 
     gray: {
       100: "#f9f9f9",

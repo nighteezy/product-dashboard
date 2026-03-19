@@ -161,7 +161,11 @@ export const ProductsTable: FC<IProductsTable> = ({
 
       <S.Pagination>
         <S.PaginationInfo>
-          Показано {isEmpty ? 0 : startIndex + 1}-{endIndex} из {totalCount}
+          Показано{" "}
+          <S.PaginationInfoNumbers>
+            {isEmpty ? 0 : startIndex + 1}-{endIndex}
+          </S.PaginationInfoNumbers>{" "}
+          из <S.PaginationInfoNumbers>{totalCount}</S.PaginationInfoNumbers>
         </S.PaginationInfo>
         <S.PaginationButtons>
           <S.PageButton
