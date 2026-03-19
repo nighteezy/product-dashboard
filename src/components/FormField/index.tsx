@@ -1,4 +1,4 @@
-import type { FormFieldProps } from "./types";
+import type { IFormField } from "./types";
 import * as S from "./units";
 
 export const FormField = ({
@@ -8,7 +8,7 @@ export const FormField = ({
   leftIcon,
   rightSlot,
   inputProps,
-}: FormFieldProps) => {
+}: IFormField) => {
   return (
     <S.FieldWrapper>
       <S.Label htmlFor={id}>{label}</S.Label>

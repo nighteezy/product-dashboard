@@ -2,10 +2,10 @@ import { type FC, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { FiX } from "react-icons/fi";
 
-import type { ModalProps } from "./types";
+import type { IModal } from "./types";
 import * as S from "./units";
 
-export const Modal: FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
+export const Modal: FC<IModal> = ({ isOpen, onClose, title, children }) => {
   useEffect(() => {
     if (!isOpen) return;
 

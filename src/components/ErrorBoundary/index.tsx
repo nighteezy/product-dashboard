@@ -2,20 +2,20 @@ import { Component, type ErrorInfo, type ReactNode } from "react";
 
 import * as S from "./units";
 
-interface Props {
+interface IErrorBoundary {
   children: ReactNode;
   fallback?: ReactNode;
 }
 
-interface State {
+interface IErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  state: State = { hasError: false, error: null };
+export class ErrorBoundary extends Component<IErrorBoundary, IErrorBoundaryState> {
+  state: IErrorBoundaryState = { hasError: false, error: null };
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): IErrorBoundaryState {
     return { hasError: true, error };
   }
 

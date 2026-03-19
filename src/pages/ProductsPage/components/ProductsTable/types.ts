@@ -1,6 +1,6 @@
 import type { Product } from "api/product/types";
 
-export interface ProductsTableProps {
+export interface IProductsTable {
   products: Product[];
   isLoading: boolean;
   sortKey?: SortKey | null;

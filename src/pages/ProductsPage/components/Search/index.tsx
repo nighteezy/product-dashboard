@@ -1,10 +1,10 @@
 import { type FC } from "react";
 import { FiSearch } from "react-icons/fi";
 
-import type { SearchProps } from "./types";
+import type { ISearch } from "./types";
 import * as S from "./units";
 
-export const Search: FC<SearchProps> = ({
+export const Search: FC<ISearch> = ({
   value,
   onChange,
   onClear,

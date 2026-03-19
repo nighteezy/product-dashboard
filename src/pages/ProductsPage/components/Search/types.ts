@@ -1,4 +1,4 @@
-export interface SearchProps {
+export interface ISearch {
   value: string;
   onChange: (value: string) => void;
   onClear?: () => void;

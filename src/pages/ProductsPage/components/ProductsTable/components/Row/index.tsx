@@ -1,6 +1,6 @@
 import { FiMoreHorizontal, FiPackage, FiPlus } from "react-icons/fi";
 
-import type { ProductRowProps } from "./types";
+import type { IProductRow } from "./types";
 import * as S from "./units";
 import {
   formatPrice,
@@ -13,7 +13,7 @@ export const ProductRow = ({
   product,
   isSelected,
   onSelect,
-}: ProductRowProps) => {
+}: IProductRow) => {
   const imageUrl = getProductImage(product);
   const vendor = product.vendor ?? product.brand ?? "—";
   const sku = product.sku ?? "N/A";

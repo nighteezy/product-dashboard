@@ -4,7 +4,7 @@ import { FormField } from "components";
 
 import type {
   AddProductFormData,
-  AddProductFormProps,
+  IAddProductForm,
 } from "./types";
 import * as S from "./units";
 
@@ -15,7 +15,7 @@ const INITIAL_DATA: AddProductFormData = {
   sku: "",
 };
 
-export const AddProductForm: FC<AddProductFormProps> = ({ onSubmit }) => {
+export const AddProductForm: FC<IAddProductForm> = ({ onSubmit }) => {
   const [data, setData] = useState<AddProductFormData>(INITIAL_DATA);
   const [errors, setErrors] = useState<
     Partial<Record<keyof AddProductFormData, string>>

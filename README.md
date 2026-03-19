@@ -1,73 +1,104 @@
-# React + TypeScript + Vite
+# Product Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Дашборд для управления товарами с авторизацией, поиском, сортировкой и пагинацией.
 
-Currently, two official plugins are available:
+## Технологии
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript**
+- **Vite 8** — сборка
+- **React Router** — маршрутизация
+- **React Query** — работа с API
+- **Zustand** — состояние авторизации
+- **styled-components** — стили
+- **React Hook Form** + **Zod** — формы и валидация
+- **Axios** — HTTP-запросы
+- **react-hot-toast** — уведомления
 
-## React Compiler
+## Возможности
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Авторизация (логин с сохранением сессии)
+- Список товаров с таблицей
+- Поиск по товарам с debounce
+- Сортировка по названию, вендору, артикулу, рейтингу, цене
+- Пагинация
+- Добавление товара (модальное окно)
+- Адаптивная вёрстка
+- Error Boundary для обработки ошибок
 
-## Expanding the ESLint configuration
+## Начало работы
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Установка
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Переменные окружения
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Создайте файл `.env` на основе `.env.example`:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cp .env.example .env
 ```
+
+| Переменная   | Описание                    | По умолчанию      |
+|-------------|-----------------------------|-------------------|
+| `VITE_API_URL` | Базовый URL API            | `https://dummyjson.com` |
+
+### Запуск
+
+```bash
+# Режим разработки
+npm run dev
+
+# Сборка
+npm run build
+
+# Превью production-сборки
+npm run preview
+
+# Линтинг
+npm run lint
+```
+
+## Структура проекта
+
+```
+src/
+├── api/              # API-слой (axios, запросы, React Query)
+├── assets/           # Статические ресурсы
+├── components/       # Общие компоненты (FormField, ErrorBoundary)
+├── features/         # Фичи (auth: хук, схема, хранилище)
+├── hooks/            # Кастомные хуки (useDebounce)
+├── pages/            # Страницы
+│   ├── LoginPage/    # Страница входа
+│   └── ProductsPage/ # Страница товаров
+│       └── components/
+│           ├── FilterDropdown/   # Фильтр/сортировка
+│           ├── Modal/           # Модальное окно
+│           ├── NotFound/        # Пустое состояние
+│           ├── ProductsTable/   # Таблица товаров
+│           └── Search/          # Поиск
+└── styles/           # Глобальные стили, токены
+```
+
+## Алиасы импортов
+
+- `api` → `src/api`
+- `components` → `src/components`
+- `features` → `src/features`
+- `hooks` → `src/hooks`
+- `pages` → `src/pages`
+- `styles` → `src/styles`
+- `assets` → `src/assets`
+- `src` → `src`
+
+Внутри модулей используются относительные пути (`./`, `../`).
+
+## API
+
+По умолчанию используется [DummyJSON](https://dummyjson.com):
+
+- `GET /products` — список товаров
+- `GET /products/search?q=...` — поиск
+- `POST /auth/login` — авторизация

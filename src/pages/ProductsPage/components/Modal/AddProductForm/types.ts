@@ -5,6 +5,6 @@ export interface AddProductFormData {
   sku: string;
 }
 
-export interface AddProductFormProps {
+export interface IAddProductForm {
   onSubmit: (data: AddProductFormData) => void;
 }

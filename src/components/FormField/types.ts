@@ -1,6 +1,6 @@
 import type { InputHTMLAttributes } from "react";
 
-export interface FormFieldProps {
+export interface IFormField {
   label: string;
   id: string;
   error?: string;

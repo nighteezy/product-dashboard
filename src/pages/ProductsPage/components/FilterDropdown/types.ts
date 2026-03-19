@@ -3,7 +3,7 @@ import type {
   SortOrder,
 } from "../ProductsTable/types";
 
-export interface FilterDropdownProps {
+export interface IFilterDropdown {
   sortKey: SortKey | null;
   sortOrder: SortOrder;
   onSortChange: (key: SortKey, order: SortOrder) => void;

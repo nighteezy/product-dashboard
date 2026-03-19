@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FiArrowDown, FiArrowUp, FiFilter } from "react-icons/fi";
 
-import type { FilterDropdownProps } from "./types";
+import type { IFilterDropdown } from "./types";
 import * as S from "./units";
 import type { SortKey } from "../ProductsTable/types";
 import { SORT_OPTIONS } from "../../const";
@@ -10,7 +10,7 @@ export const FilterDropdown = ({
   sortKey,
   sortOrder,
   onSortChange,
-}: FilterDropdownProps) => {
+}: IFilterDropdown) => {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 

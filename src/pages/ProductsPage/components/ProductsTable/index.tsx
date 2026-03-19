@@ -9,7 +9,7 @@ import {
   VISIBLE_PAGE_BUTTONS,
 } from "./const";
 import type {
-  ProductsTableProps,
+  IProductsTable,
   SortKey,
   SortOrder,
 } from "./types";
@@ -23,7 +23,7 @@ import {
   toggleSelection,
 } from "./utils";
 
-export const ProductsTable: FC<ProductsTableProps> = ({
+export const ProductsTable: FC<IProductsTable> = ({
   products,
   isLoading,
   sortKey: sortKeyProp = null,
