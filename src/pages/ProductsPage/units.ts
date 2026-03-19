@@ -64,12 +64,11 @@ export const HeaderIconButton = styled.button`
   background: transparent;
   border: none;
   color: ${tokens.color.gray[600]};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   border-radius: ${tokens.radius.sm};
-  transition: all ${tokens.transition.fast};
+  transition:
+    border-color ${tokens.transition.fast},
+    background-color ${tokens.transition.fast};
   position: relative;
 
   &:hover {
@@ -87,7 +86,7 @@ export const HeaderIconBadge = styled.span`
   padding: 0 5px;
   background: ${tokens.color.badge};
   color: ${tokens.color.white};
-  font-size: 11px;
+  font-size: ${tokens.typography.fontSize.xxs};
   font-weight: ${tokens.typography.fontWeight.bold};
   border-radius: ${tokens.radius.full};
   display: flex;
@@ -96,10 +95,9 @@ export const HeaderIconBadge = styled.span`
 `;
 
 export const Title = styled.h1`
-  font-size: 24px;
+  font-size: ${tokens.typography.fontSize.x};
   font-weight: ${tokens.typography.fontWeight.semibold};
   flex-shrink: 0;
-  margin: 0;
 `;
 
 export const SectionWrapper = styled.div`
@@ -130,7 +128,7 @@ export const SectionHeader = styled.div`
 `;
 
 export const SectionTitle = styled.h4`
-  font-size: 20px;
+  font-size: ${tokens.typography.fontSize.lgg};
   font-weight: ${tokens.typography.fontWeight.semibold};
 `;
 
@@ -148,12 +146,10 @@ export const IconButton = styled.button<{ $active?: boolean }>`
     ${({ $active }) =>
       $active ? tokens.color.primary : tokens.color.gray[300]};
   border-radius: ${tokens.spacing[3]};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all ${tokens.transition.fast};
-  position: relative;
+
+  transition:
+    border-color ${tokens.transition.fast},
+    background-color ${tokens.transition.fast};
 
   &:hover {
     background: ${({ $active }) =>
@@ -169,11 +165,11 @@ export const AddButton = styled.button`
   border-radius: ${tokens.spacing[3]};
   font-size: ${tokens.typography.fontSize.base};
   font-weight: ${tokens.typography.fontWeight.semibold};
-  cursor: pointer;
+
   display: flex;
   align-items: center;
   gap: ${tokens.spacing[3]};
-  transition: all ${tokens.transition.fast};
+  transition: background-color ${tokens.transition.fast};
 
   &:hover {
     background: ${tokens.color.primaryHover};

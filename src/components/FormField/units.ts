@@ -14,8 +14,6 @@ export const Label = styled.label`
   color: ${tokens.color.gray[800]};
 
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 `;
 
 export const InputGroup = styled.div<{ $hasError?: boolean }>`
@@ -55,27 +53,25 @@ export const InputWrapper = styled.div`
   align-items: center;
 `;
 
-export const LeftIcon = styled.span`
+const IconBase = styled.span`
   position: absolute;
-  left: 14px;
-  color: ${tokens.color.gray[500]};
   display: flex;
   align-items: center;
-  pointer-events: none;
+  color: ${tokens.color.gray[500]};
 `;
 
-export const RightSlot = styled.div`
-  position: absolute;
-  right: 16px;
-  display: flex;
-  align-items: center;
+export const LeftIcon = styled(IconBase)`
+  left: 14px;
+`;
+
+export const RightSlot = styled(IconBase)`
+  right: 14px;
 
   & button {
     background: none;
     border: none;
     color: ${tokens.color.gray[500]};
     cursor: pointer;
-    padding: ${tokens.spacing[1]};
     display: flex;
     align-items: center;
 
@@ -91,16 +87,13 @@ export const Input = styled.input<{
 }>`
   width: 100%;
   padding: 14px;
-  padding-left: ${({ $hasLeftIcon }) => ($hasLeftIcon ? "48px" : "16px")};
-  padding-right: ${({ $hasRightSlot }) => ($hasRightSlot ? "48px" : "16px")};
+  padding-left: ${({ $hasLeftIcon }) => ($hasLeftIcon ? "48px" : "14px")};
+  padding-right: ${({ $hasRightSlot }) => ($hasRightSlot ? "48px" : "14px")};
   border: none;
   border-radius: ${tokens.radius.md};
   font-size: ${tokens.typography.fontSize.md};
-  background: ${tokens.color.white};
 
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
   &::placeholder {
     color: ${tokens.color.gray[500]};

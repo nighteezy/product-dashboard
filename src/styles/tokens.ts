@@ -73,11 +73,14 @@ export const tokens = {
 
   typography: {
     fontSize: {
+      xxs: "10px",
       xs: "12px",
       sm: "13px",
       base: "14px",
       md: "16px",
       lg: "18px",
+      lgg: "20px",
+      x: "24px",
       xl: "40px",
     },
     fontWeight: {

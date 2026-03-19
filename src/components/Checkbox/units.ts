@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
 import { tokens } from "styles/tokens";
-
-const sizes = {
-  sm: "18px",
-  md: "20px",
-} as const;
+import { sizes } from "./const";
 
 export const StyledCheckbox = styled.input<{ $size?: keyof typeof sizes }>`
   width: ${({ $size = "md" }) => sizes[$size]};
@@ -21,6 +17,6 @@ export const StyledCheckbox = styled.input<{ $size?: keyof typeof sizes }>`
 
   &:checked {
     background: ${tokens.color.selected};
-    border-color: ${tokens.color.selected};
+    border-color: ${tokens.color.gray[400]};
   }
 `;

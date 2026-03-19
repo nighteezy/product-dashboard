@@ -33,11 +33,11 @@ export const ProductsTable: FC<IProductsTable> = ({
 
   const totalCount = sortedProducts.length;
   const totalPages = getTotalPages(totalCount, ITEMS_PER_PAGE);
-  const { items: paginatedProducts, startIndex, endIndex } = getPaginatedSlice(
-    sortedProducts,
-    currentPage,
-    ITEMS_PER_PAGE,
-  );
+  const {
+    items: paginatedProducts,
+    startIndex,
+    endIndex,
+  } = getPaginatedSlice(sortedProducts, currentPage, ITEMS_PER_PAGE);
 
   const handleSort = (key: SortKey) => {
     const newOrder =
@@ -154,11 +154,9 @@ export const ProductsTable: FC<IProductsTable> = ({
                 </S.EmptyCell>
               </tr>
             ) : isEmpty ? (
-              <S.TableRow>
-                <S.EmptyCell colSpan={TABLE_COLS_COUNT}>
-                  <NotFound />
-                </S.EmptyCell>
-              </S.TableRow>
+              <S.EmptyCell colSpan={TABLE_COLS_COUNT}>
+                <NotFound />
+              </S.EmptyCell>
             ) : (
               paginatedProducts.map((product) => (
                 <ProductRow
@@ -206,9 +204,7 @@ export const ProductsTable: FC<IProductsTable> = ({
           <S.PageButton
             type="button"
             $active={false}
-            onClick={() =>
-              setCurrentPage((p) => Math.min(totalPages, p + 1))
-            }
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
           >
             ›
           </S.PageButton>

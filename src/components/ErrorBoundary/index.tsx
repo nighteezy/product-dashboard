@@ -1,18 +1,12 @@
-import { Component, type ErrorInfo, type ReactNode } from "react";
+import { Component, type ErrorInfo } from "react";
 
+import type { IErrorBoundary, IErrorBoundaryState } from "./types";
 import * as S from "./units";
 
-interface IErrorBoundary {
-  children: ReactNode;
-  fallback?: ReactNode;
-}
-
-interface IErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-}
-
-export class ErrorBoundary extends Component<IErrorBoundary, IErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  IErrorBoundary,
+  IErrorBoundaryState
+> {
   state: IErrorBoundaryState = { hasError: false, error: null };
 
   static getDerivedStateFromError(error: Error): IErrorBoundaryState {

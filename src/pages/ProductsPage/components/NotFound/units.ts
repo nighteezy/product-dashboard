@@ -19,7 +19,6 @@ export const Icon = styled.div`
 `;
 
 export const Text = styled.p`
-  margin: 0;
   font-size: ${tokens.typography.fontSize.base};
   color: ${tokens.color.gray[600]};
   max-width: 280px;

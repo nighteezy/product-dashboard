@@ -30,21 +30,30 @@ export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${tokens.spacing[6]};
+
+  text-align: center;
 `;
 
 export const Title = styled.h1`
-  text-align: center;
   font-size: ${tokens.typography.fontSize.xl};
   font-weight: ${tokens.typography.fontWeight.semibold};
   line-height: ${tokens.typography.lineHeight.tight};
 `;
 
 export const Subtitle = styled.p`
-  text-align: center;
   color: ${tokens.color.gray[300]};
   font-size: ${tokens.typography.fontSize.lg};
   font-weight: ${tokens.typography.fontWeight.normal};
   line-height: ${tokens.typography.lineHeight.normal};
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.17) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 `;
 
 export const LogoWrapper = styled.div`
@@ -85,7 +94,6 @@ export const CheckboxWrapper = styled.label`
 `;
 
 export const LoginButton = styled.button<{ $isLoading?: boolean }>`
-  width: 100%;
   padding: ${tokens.spacing[8]} ${tokens.spacing[12]};
 
   background: ${tokens.color.primary};

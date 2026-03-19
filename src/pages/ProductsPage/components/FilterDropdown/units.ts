@@ -51,11 +51,11 @@ export const Option = styled.button<{ $active?: boolean }>`
     $active ? tokens.color.primaryFocus : "transparent"};
   border: none;
   border-radius: ${tokens.radius.sm};
-  cursor: pointer;
+
   font-size: ${tokens.typography.fontSize.base};
   color: ${tokens.color.gray[800]};
   text-align: left;
-  transition: all ${tokens.transition.fast};
+  transition: background-color ${tokens.transition.fast};
   margin-bottom: ${tokens.spacing[1]};
 
   &:last-child {

@@ -30,7 +30,7 @@ export const Modal: FC<IModal> = ({ isOpen, onClose, title, children }) => {
         <S.Header>
           {title && <S.Title>{title}</S.Title>}
           <S.CloseButton type="button" onClick={onClose} aria-label="Закрыть">
-            <FiX size={24} />
+            <FiX size={30} />
           </S.CloseButton>
         </S.Header>
         {children && <S.Body>{children}</S.Body>}

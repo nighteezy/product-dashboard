@@ -55,8 +55,7 @@ export const Pagination = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: ${tokens.spacing[6]};
-  margin-top: ${tokens.spacing[12]};
-  padding: 0 ${tokens.spacing[3]};
+  padding: ${tokens.spacing[20]} 0;
 
   @media (max-width: ${tokens.breakpoint.sm}) {
     flex-direction: column;
@@ -91,9 +90,9 @@ export const PageButton = styled.button<{ $active?: boolean }>`
   color: ${({ $active }) =>
     $active ? tokens.color.white : tokens.color.gray[800]};
   border-radius: ${tokens.radius.sm};
-  cursor: pointer;
+
   font-size: ${tokens.typography.fontSize.base};
-  transition: all ${tokens.transition.fast};
+  transition: background-color ${tokens.transition.fast};
 
   &:hover {
     background: ${({ $active }) =>
@@ -111,8 +110,8 @@ export const LoadingWrapper = styled.div`
 `;
 
 export const Spinner = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 100px;
   border: 3px solid ${tokens.color.gray[300]};
   border-top-color: ${tokens.color.primary};
   border-radius: 50%;

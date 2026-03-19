@@ -14,14 +14,6 @@ export const Row = styled.tr`
 export const CheckboxCell = styled.td<{ $selected?: boolean }>`
   position: relative;
   padding: ${tokens.spacing[8]};
-  font-size: ${tokens.typography.fontSize.md};
-  font-weight: ${tokens.typography.fontWeight.normal};
-  color: ${tokens.color.gray[800]};
-  text-align: center;
-  width: 48px;
-  min-width: 48px;
-  max-width: 48px;
-  box-sizing: border-box;
 
   &::before {
     content: "";
@@ -55,13 +47,8 @@ export const ProductInfo = styled.div`
 export const ProductImage = styled.div`
   width: 48px;
   height: 48px;
-  min-width: 48px;
   background: ${tokens.color.gray[300]};
   border-radius: ${tokens.spacing[3]};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
   color: ${tokens.color.gray[500]};
 
   img {
@@ -81,14 +68,14 @@ export const ProductDetails = styled.div`
 export const ProductName = styled.div`
   font-size: ${tokens.typography.fontSize.md};
   font-weight: ${tokens.typography.fontWeight.bold};
-  line-height: 1.25;
+
   color: ${tokens.color.gray[800]};
 `;
 
 export const ProductCategory = styled.div`
   font-size: ${tokens.typography.fontSize.base};
   font-weight: ${tokens.typography.fontWeight.normal};
-  line-height: 1.25;
+
   color: ${tokens.color.gray[650]};
 `;
 
@@ -137,18 +124,15 @@ export const ActionButtons = styled.div`
 `;
 
 export const ActionButtonPrimary = styled.button`
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
+  width: 52px;
+  height: 27px;
+
   border-radius: ${tokens.radius.full};
   border: none;
   background: ${tokens.color.primary};
   color: ${tokens.color.white};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all ${tokens.transition.fast};
+
+  transition: background-color ${tokens.transition.fast};
 
   &:hover {
     background: ${tokens.color.primaryHover};
@@ -158,13 +142,8 @@ export const ActionButtonPrimary = styled.button`
 export const ActionButtonSecondary = styled.button`
   width: 32px;
   height: 32px;
-  min-width: 32px;
   border-radius: ${tokens.radius.full};
   border: 1px solid ${tokens.color.gray[300]};
   background: ${tokens.color.white};
   color: ${tokens.color.gray[600]};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;

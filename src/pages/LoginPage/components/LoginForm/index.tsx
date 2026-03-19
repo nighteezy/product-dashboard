@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useLoginMutation } from "api/queries/auth/index";
 import { parseLoginError } from "features/auth/lib/parseLoginError";
-import { ROUTES } from "routes";
 import { loginSchema, type LoginFormData } from "features/auth/model/schema";
+import { ROUTES } from "routes";
 
 import logo from "assets/images/logo.svg";
 import { Checkbox, FormField } from "components";
@@ -74,14 +74,14 @@ export const LoginForm = () => {
           label="Логин"
           id="login-username"
           error={errors.username?.message}
-          leftIcon={<FiUser size={20} />}
+          leftIcon={<FiUser size={24} />}
           rightSlot={
             <button
               type="button"
               onClick={() => setValue("username", "", { shouldValidate: true })}
               aria-label="Очистить поле"
             >
-              <FiX size={18} />
+              <FiX size={24} />
             </button>
           }
           inputProps={{
@@ -94,14 +94,14 @@ export const LoginForm = () => {
           label="Пароль"
           id="login-password"
           error={errors.password?.message}
-          leftIcon={<FiLock size={20} />}
+          leftIcon={<FiLock size={24} />}
           rightSlot={
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
             >
-              {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+              {showPassword ? <FiEyeOff size={24} /> : <FiEye size={24} />}
             </button>
           }
           inputProps={{

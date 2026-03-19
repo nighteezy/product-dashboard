@@ -14,14 +14,12 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h2`
-  margin-bottom: ${tokens.spacing[8]};
   font-size: ${tokens.typography.fontSize.xl};
   font-weight: ${tokens.typography.fontWeight.semibold};
   color: ${tokens.color.gray[800]};
 `;
 
 export const Message = styled.p`
-  margin-bottom: ${tokens.spacing[12]};
   font-size: ${tokens.typography.fontSize.base};
   color: ${tokens.color.gray[600]};
   max-width: 400px;
@@ -34,7 +32,6 @@ export const RetryButton = styled.button`
 
   font-size: ${tokens.typography.fontSize.base};
   font-weight: ${tokens.typography.fontWeight.semibold};
-  cursor: pointer;
   transition: all ${tokens.transition.fast};
 
   &:hover {
