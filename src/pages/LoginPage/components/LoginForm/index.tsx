@@ -11,7 +11,7 @@ import { ROUTES } from "routes";
 import { loginSchema, type LoginFormData } from "features/auth/model/schema";
 
 import logo from "assets/images/logo.svg";
-import { FormField } from "components";
+import { Checkbox, FormField } from "components";
 import * as S from "./units";
 
 export const LoginForm = () => {
@@ -112,7 +112,7 @@ export const LoginForm = () => {
         />
 
         <S.CheckboxWrapper>
-          <S.Checkbox type="checkbox" {...register("rememberMe")} />
+          <Checkbox size="sm" {...register("rememberMe")} />
           <span>Запомнить данные</span>
         </S.CheckboxWrapper>
 

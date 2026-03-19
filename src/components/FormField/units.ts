@@ -9,11 +9,10 @@ export const FieldWrapper = styled.div`
 `;
 
 export const Label = styled.label`
-  font-family: "Inter", sans-serif;
   font-size: ${tokens.typography.fontSize.lg};
   font-weight: ${tokens.typography.fontWeight.medium};
   color: ${tokens.color.gray[800]};
-  display: block;
+
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -54,7 +53,6 @@ export const InputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  border-radius: ${tokens.radius.md};
 `;
 
 export const LeftIcon = styled.span`
@@ -87,8 +85,10 @@ export const RightSlot = styled.div`
   }
 `;
 
-export const Input = styled.input<{ $hasLeftIcon?: boolean; $hasRightSlot?: boolean }>`
-  font-family: "Inter", sans-serif;
+export const Input = styled.input<{
+  $hasLeftIcon?: boolean;
+  $hasRightSlot?: boolean;
+}>`
   width: 100%;
   padding: 14px;
   padding-left: ${({ $hasLeftIcon }) => ($hasLeftIcon ? "48px" : "16px")};
@@ -97,7 +97,7 @@ export const Input = styled.input<{ $hasLeftIcon?: boolean; $hasRightSlot?: bool
   border-radius: ${tokens.radius.md};
   font-size: ${tokens.typography.fontSize.md};
   background: ${tokens.color.white};
-  outline: none;
+
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

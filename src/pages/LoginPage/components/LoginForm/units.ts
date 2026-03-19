@@ -73,7 +73,6 @@ export const FormWrapper = styled.form`
   flex-direction: column;
   gap: ${tokens.spacing[8]};
   width: 100%;
-  max-width: 400px;
 `;
 
 export const CheckboxWrapper = styled.label`
@@ -83,15 +82,6 @@ export const CheckboxWrapper = styled.label`
   cursor: pointer;
   font-size: ${tokens.typography.fontSize.base};
   color: ${tokens.color.gray[600]};
-`;
-
-export const Checkbox = styled.input`
-  width: 20px;
-  height: 20px;
-  border: 2px solid ${tokens.color.gray[400]};
-  border-radius: ${tokens.radius.sm};
-
-  accent-color: ${tokens.color.primary};
 `;
 
 export const LoginButton = styled.button<{ $isLoading?: boolean }>`

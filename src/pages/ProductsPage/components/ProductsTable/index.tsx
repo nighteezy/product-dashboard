@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FC } from "react";
 
+import { Checkbox } from "components";
 import { NotFound } from "../NotFound";
 import { ProductRow, SortIcon } from "./components";
 import {
@@ -81,9 +82,8 @@ export const ProductsTable: FC<IProductsTable> = ({
                 $checkbox
                 onClick={(e) => e.stopPropagation()}
               >
-                <S.Checkbox
+                <Checkbox
                   ref={headerCheckboxRef}
-                  type="checkbox"
                   checked={isAllSelected}
                   disabled={isEmpty || isLoading}
                   onChange={handleSelectAll}

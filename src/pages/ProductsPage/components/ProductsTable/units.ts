@@ -40,30 +40,13 @@ export const TableHeader = styled.th<{
 export const SortableHeaderContent = styled.span<{ $alignLeft?: boolean }>`
   display: inline-flex;
   align-items: center;
-  justify-content: ${({ $alignLeft }) => ($alignLeft ? "flex-start" : "center")};
+  justify-content: ${({ $alignLeft }) =>
+    $alignLeft ? "flex-start" : "center"};
   gap: ${tokens.spacing[6]};
 `;
 
 export const TableRow = styled.tr`
   border-bottom: 1px solid ${tokens.color.gray[300]};
-`;
-
-export const Checkbox = styled.input`
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  border: 2px solid ${tokens.color.gray[400]};
-  border-radius: ${tokens.radius.sm};
-  background: ${tokens.color.white};
-  position: relative;
-
-  &:checked {
-    background: ${tokens.color.selected};
-    border-color: ${tokens.color.selected};
-  }
 `;
 
 export const Pagination = styled.div`
