@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -13,6 +14,7 @@ import * as S from "./units";
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { mutate: loginMutation, isPending } = useLoginMutation();
 
@@ -25,6 +27,8 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (data: LoginFormData) => {
+    setApiError(null);
+
     loginMutation(
       {
         username: data.username,
@@ -36,8 +40,13 @@ export const LoginForm = () => {
           toast.success("Успешный вход");
           navigate("/products");
         },
-        onError: () => {
-          toast.error("Неверный логин или пароль");
+        onError: (error) => {
+          const axiosError = error as AxiosError<{ message?: string }>;
+          const errorMessage =
+            axiosError.response?.data?.message || "Неверный логин или пароль";
+
+          setApiError(errorMessage);
+          toast.error(errorMessage);
         },
       },
     );
@@ -55,7 +64,6 @@ export const LoginForm = () => {
       </S.TitleWrapper>
 
       <S.FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        {/* Username */}
         <div>
           <S.FieldLabel>Логин</S.FieldLabel>
           <S.InputWrapper>
@@ -72,7 +80,6 @@ export const LoginForm = () => {
           )}
         </div>
 
-        {/* Password */}
         <div>
           <S.FieldLabel>Пароль</S.FieldLabel>
           <S.InputWrapper>
@@ -96,11 +103,12 @@ export const LoginForm = () => {
           )}
         </div>
 
-        {/* Remember me */}
         <S.CheckboxWrapper>
           <S.Checkbox type="checkbox" {...register("rememberMe")} />
           <span>Запомнить данные</span>
         </S.CheckboxWrapper>
+
+        {apiError && <S.ErrorMessage>{apiError}</S.ErrorMessage>}
 
         <S.LoginButton type="submit" disabled={isPending}>
           {isPending ? "Загрузка..." : "Войти"}
